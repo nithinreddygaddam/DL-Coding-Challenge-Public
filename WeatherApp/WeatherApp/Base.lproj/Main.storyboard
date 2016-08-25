@@ -5,22 +5,156 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clouds.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="rvj-hT-lJC">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZwO-Kz-j64">
+                                <rect key="frame" x="24" y="409" width="326" height="51"/>
+                                <color key="backgroundColor" red="0.23018704349999999" green="0.77713233230000001" blue="0.31589496140000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" keyboardKey="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="326" id="SIT-7Q-Q0d"/>
+                                    <constraint firstAttribute="height" constant="51" id="Sc0-iU-Yoi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <size key="titleShadowOffset" width="20" height="27"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="heightClass=regular" fixedFrame="YES">
+                                    <rect key="frame" x="124" y="315" width="353" height="39"/>
+                                </variation>
+                                <connections>
+                                    <action selector="IBLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dlo-cM-8v4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ax9-Hz-i5f">
+                                <rect key="frame" x="24" y="492" width="326" height="51"/>
+                                <color key="backgroundColor" red="0.19376453760000001" green="0.50850099329999998" blue="0.85232251879999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="pbG-2b-wgo"/>
+                                    <constraint firstAttribute="width" constant="326" id="vY9-8U-ea0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Register">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="heightClass=regular" fixedFrame="YES">
+                                    <rect key="frame" x="124" y="386" width="353" height="39"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="EQk-kj-zbT" kind="show" id="9BT-Hf-n1v"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZwO-Kz-j64" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="409" id="A2h-mj-eEv"/>
+                            <constraint firstAttribute="trailing" secondItem="ZwO-Kz-j64" secondAttribute="trailing" constant="25" id="CcB-XE-Y9z"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rvj-hT-lJC" secondAttribute="bottom" id="M9V-KC-mQ3"/>
+                            <constraint firstAttribute="trailing" secondItem="ax9-Hz-i5f" secondAttribute="trailing" constant="25" id="WWJ-Q3-xcw"/>
+                            <constraint firstItem="rvj-hT-lJC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Y6n-i6-fw5"/>
+                            <constraint firstItem="ax9-Hz-i5f" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="24" id="ag2-10-gjb"/>
+                            <constraint firstAttribute="trailing" secondItem="rvj-hT-lJC" secondAttribute="trailing" id="iAn-hk-BS2"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ax9-Hz-i5f" secondAttribute="bottom" constant="124" id="m9F-xH-oQw"/>
+                            <constraint firstItem="ZwO-Kz-j64" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="24" id="pVQ-9e-XEV"/>
+                            <constraint firstItem="rvj-hT-lJC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="slT-3c-fRY"/>
+                            <constraint firstItem="ax9-Hz-i5f" firstAttribute="top" secondItem="ZwO-Kz-j64" secondAttribute="bottom" constant="32" id="yQ2-08-dkE"/>
+                        </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <segue destination="SEz-WW-Qpw" kind="show" identifier="loginSegue" id="Dy9-2W-rE5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="207.5" y="371.5"/>
+        </scene>
+        <!--Register View Controller-->
+        <scene sceneID="sTl-cJ-r6h">
+            <objects>
+                <viewController id="EQk-kj-zbT" customClass="RegisterViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7dJ-YV-s0v"/>
+                        <viewControllerLayoutGuide type="bottom" id="0AR-S0-v6A"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mkl-Gv-INS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <segue destination="SEz-WW-Qpw" kind="show" identifier="registerSegue" id="hqK-0k-KQo"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="cancelSegue" id="zjz-C0-2Ku"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tHI-nF-1Rk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="273.5" y="1218.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="EbE-l4-n2g">
+            <objects>
+                <viewController id="Hbg-U8-bF0" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JhP-AR-5Rb"/>
+                        <viewControllerLayoutGuide type="bottom" id="eya-Nj-T4l"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="113-H6-Kjc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="JWN-pD-GBZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gve-bW-rWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1433.5" y="393.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="VMW-Uj-qaM">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SEz-WW-Qpw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="krY-F1-cRS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Hbg-U8-bF0" kind="relationship" relationship="rootViewController" id="p8T-Xe-yWD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8hZ-QV-cNS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="856" y="394"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="clouds.jpg" width="3872" height="2592"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Dy9-2W-rE5"/>
+    </inferredMetricsTieBreakers>
 </document>
