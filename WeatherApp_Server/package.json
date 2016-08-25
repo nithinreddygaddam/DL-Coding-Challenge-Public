@@ -21,6 +21,6 @@
     "passport-local": "^1.0.0",
     "static-favicon": "~1.0.0",
     "synchronize": "^0.9.15",
-    "forever":  "*",
+    "forever":  "*"
   }
 }

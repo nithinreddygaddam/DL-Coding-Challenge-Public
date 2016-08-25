@@ -17,7 +17,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     let locationManager = CLLocationManager()
     var myGroup = dispatch_group_create()
-    var strTitle: String = "Dashboard"
     var arrTemp:[String] = []
     var arrCondition:[String] = []
     var arrTime:[String] = []
@@ -26,12 +25,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     var leftButton : UIBarButtonItem!
     var arrLocations:[String] = []
     var arrState:[String] = []
-    
-    @IBOutlet weak var tblView: UITableView!
-    
     var configurationOK = false
     let reuseIdentifier = "idCellDashboard"
     
+    @IBOutlet weak var tblView: UITableView!
+    
+    // pull to refresh control
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(DashboardViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
@@ -46,6 +45,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         self.tblView.addSubview(self.refreshControl)
         
+        // fetch GPS Location of the User
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -61,13 +61,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        // customised navigation bar items
         leftButton = UIBarButtonItem(image: UIImage(named:"plus-simple-7.png"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(askLocation))
         rightButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(logOut))
         self.navigationItem.leftBarButtonItem = leftButton
         self.navigationItem.rightBarButtonItem = rightButton
-//        self.navigationItem.title = loggedUser.fName! + " " + loggedUser.lName!
 
-        
         if !configurationOK {
             configureNavigationBar()
             configureTableView()
@@ -77,6 +76,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func logOut(){
+        // delete stored details of the user and web token
         A0SimpleKeychain().deleteEntryForKey("user-jwt")
         
         loggedUser = User()
@@ -91,6 +91,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func askLocation(){
         
+        // pop up to add new location
         let alertController = UIAlertController(title: "Add Location", message: "Please enter a Location and State code or Country if outside US ( San Diego:CA || Paris:France)  : ", preferredStyle: UIAlertControllerStyle.Alert)
         
         alertController.addTextFieldWithConfigurationHandler(nil)
@@ -131,6 +132,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     
+    // function to get location names using latittude and longitude
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error) -> Void in
             if (error != nil) {
@@ -168,6 +170,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         })
     }
     
+    
+    // function to get latest data of the locations
     func fetchData() {
         
         let path = NSBundle.mainBundle().pathForResource("Property List", ofType: "plist")
@@ -185,8 +189,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 .responseJSON { response in
                     
                     let json = JSON(data: response.data!)
-                    
-                    print(json["current_observation"]["temp_f"])
                     
                     if  json["current_observation"]["temp_f"] != nil{
                         
@@ -214,7 +216,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    
     func reloadTable(){
         dispatch_async(dispatch_get_main_queue(), {
             self.tblView.reloadData()
@@ -223,7 +224,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func configureNavigationBar() {
-        navigationItem.title = strTitle
+        navigationItem.title = loggedUser.fName! + " " + loggedUser.lName!
     }
     
     
@@ -253,6 +254,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     //displays user's information
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        // custom view for each cell
         let cell:DashboardCell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! DashboardCell
         cell.Location.text = self.arrLocations[indexPath.row]
         cell.Time.text = self.arrTime[indexPath.row]
@@ -271,6 +273,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         return 80.0
     }
     
+    // when a row is selected perform
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
 //        self.performSegueWithIdentifier("detailSegue", sender: nil)
@@ -288,10 +291,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        // Do some reloading of data and update the table view's data source
-        // Fetch more objects from a web service, for example...
+        // reloading of data and update the table view's data source
         
-        // Simply adding an object to the data source for this example
+        // adding an object to the data source
         fetchData()
         refreshControl.endRefreshing()
     }

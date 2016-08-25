@@ -19,6 +19,8 @@ class RegisterViewController:FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Form to display the register View
+        
         form +++ Section("Mandatory Fields")
             <<< TextRow("username"){ row in
                 row.title = "Username"
@@ -55,9 +57,10 @@ class RegisterViewController:FormViewController {
                     let lName: NameRow? = self.form.rowByTag("lName")
                     let eMail: EmailRow? = self.form.rowByTag("eMail")
                     
+                    // validation
                     if(username!.value != nil || password!.value != nil || fName!.value != nil || lName!.value != nil || eMail!.value != nil){
                         
-                        let path = NSBundle.mainBundle().pathForResource("PropertyList", ofType: "plist")
+                        let path = NSBundle.mainBundle().pathForResource("Property List", ofType: "plist")
                         let dict = NSDictionary(contentsOfFile: path!)
                         let url = dict!.objectForKey("awsURL") as! String
                         

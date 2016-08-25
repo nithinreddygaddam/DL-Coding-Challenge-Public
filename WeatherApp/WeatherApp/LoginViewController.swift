@@ -39,9 +39,9 @@ class LoginViewController: UIViewController {
         
         // the color of the blinking cursor
         username.tintColor = UIColor.flatSkyBlueColorDark()
-        username.textColor = UIColor.flatYellowColor()
-        username.placeholderColor = UIColor.flatYellowColor()
-        username.lineColor = UIColor.flatYellowColor()
+        username.textColor = UIColor.flatRedColor()
+        username.placeholderColor = UIColor.flatRedColor()
+        username.lineColor = UIColor.flatRedColor()
         username.selectedTitleColor = UIColor.flatSkyBlueColor()
         username.selectedLineColor = UIColor.flatSkyBlueColor()
         
@@ -51,9 +51,9 @@ class LoginViewController: UIViewController {
         self.view.addSubview(password)
         
         password.tintColor = UIColor.flatSkyBlueColorDark()
-        password.textColor = UIColor.flatYellowColor()
-        password.placeholderColor = UIColor.flatYellowColor()
-        password.lineColor = UIColor.flatYellowColor()
+        password.textColor = UIColor.flatRedColor()
+        password.placeholderColor = UIColor.flatRedColor()
+        password.lineColor = UIColor.flatRedColor()
         password.selectedTitleColor = UIColor.flatSkyBlueColor()
         password.selectedLineColor = UIColor.flatSkyBlueColor()
         
@@ -83,57 +83,63 @@ class LoginViewController: UIViewController {
     
     @IBAction func IBLogin(sender: AnyObject) {
         
-//        view.endEditing(true) //dismiss keyboard
-//        
-//        if(self.username.text != nil && self.password.text != nil){
-//            
-//            let path = NSBundle.mainBundle().pathForResource("PropertyList", ofType: "plist")
-//            let dict = NSDictionary(contentsOfFile: path!)
-//            let url = dict!.objectForKey("awsURL") as! String
-//            
-//            Alamofire.request(.POST, "http://" + url + "/login", parameters: ["username": self.username.text!, "password": self.password.text!])
-//                .responseJSON { response in
-//                    
-//                    let json = JSON(data: response.data!)
-//                    
-//                    if json["user"]["_id"] != nil {
-//                        
-//                        let jwt = json["token"].string
-//                        A0SimpleKeychain().setString(jwt!, forKey:"user-jwt")
-//                        
-//                        if ARSLineProgress.shown { return }
-//                        
-//                        progressObject = NSProgress(totalUnitCount: 30)
-//                        ARSLineProgress.showWithProgressObject(progressObject!, completionBlock: {
-//                            
-//                            loggedUser = User(id: json["user"]["_id"].string!, username: json["user"]["username"].string!, fName: json["user"]            ["firstName"].string!, lName: json["user"]["lastName"].string!, eMail: json["user"]["email"].string!)
-//                            
-//                            let userDefaults = NSUserDefaults.standardUserDefaults()
-//                            let encodedData = NSKeyedArchiver.archivedDataWithRootObject(loggedUser)
-//                            userDefaults.setObject(encodedData, forKey: "loggedUser")
-//                            userDefaults.synchronize()
-//                            
-//                            self.performSegueWithIdentifier("loginSegue", sender: nil)
-//                            
-//                        })
-//                        
-//                        self.progressDemoHelper(success: true)
-//                        
-//                    }
-//                    else{
-//                        if ARSLineProgress.shown { return }
-//                        
-//                        progressObject = NSProgress(totalUnitCount: 30)
-//                        ARSLineProgress.showWithProgressObject(progressObject!, completionBlock: {
-//                            print("This copmletion block is going to be overriden by cancel completion block in launchTimer() method.")
-//                        })
-//                        
-//                        self.progressDemoHelper(success: false)
-//                    }
-//            }
-//        }
+        view.endEditing(true) //dismiss keyboard
         
-        self.performSegueWithIdentifier("loginSegue", sender: nil)
+        // validation
+        if(self.username.text != nil && self.password.text != nil){
+            
+            // fetches server url from proerty file
+            let path = NSBundle.mainBundle().pathForResource("Property List", ofType: "plist")
+            let dict = NSDictionary(contentsOfFile: path!)
+            let url = dict!.objectForKey("awsURL") as! String
+            
+            // framework code to communicate to the server
+            Alamofire.request(.POST, "http://" + url + "/login", parameters: ["username": self.username.text!, "password": self.password.text!])
+                .responseJSON { response in
+                    
+                    let json = JSON(data: response.data!)
+                    
+                    if json["user"]["_id"] != nil {
+                        
+                        // JSON web token saved to the framework Key chain for future requests
+                        let jwt = json["token"].string
+                        A0SimpleKeychain().setString(jwt!, forKey:"user-jwt")
+                        
+                        // progess lines
+                        if ARSLineProgress.shown { return }
+                        
+                        progressObject = NSProgress(totalUnitCount: 30)
+                        ARSLineProgress.showWithProgressObject(progressObject!, completionBlock: {
+                            
+                            // data saved on to local object
+                            loggedUser = User(id: json["user"]["_id"].string!, username: json["user"]["username"].string!, fName: json["user"]            ["firstName"].string!, lName: json["user"]["lastName"].string!, eMail: json["user"]["email"].string!)
+                            
+                            // user data persisted locally
+                            let userDefaults = NSUserDefaults.standardUserDefaults()
+                            let encodedData = NSKeyedArchiver.archivedDataWithRootObject(loggedUser)
+                            userDefaults.setObject(encodedData, forKey: "loggedUser")
+                            userDefaults.synchronize()
+                            
+                            self.performSegueWithIdentifier("loginSegue", sender: nil)
+                            
+                        })
+                        
+                        self.progressDemoHelper(success: true)
+                        
+                    }
+                    else{
+                        // error if login fails
+                        if ARSLineProgress.shown { return }
+                        
+                        progressObject = NSProgress(totalUnitCount: 30)
+                        ARSLineProgress.showWithProgressObject(progressObject!, completionBlock: {
+                            print("This copmletion block is going to be overriden by cancel completion block in launchTimer() method.")
+                        })
+                        
+                        self.progressDemoHelper(success: false)
+                    }
+            }
+        }
     }
 }
 

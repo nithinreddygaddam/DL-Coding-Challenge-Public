@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>awsURL</key>
-	<string></string>
+	<string>127.0.0.1:8080</string>
 	<key>port</key>
 	<string>8100</string>
 	<key>APIKey</key>
