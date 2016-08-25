@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var async = require('async');
 
-mongoose.connect('mongodb://localhost/WeatherApp');
+mongoose.connect('mongodb://nithin:nithin@ds039115.mlab.com:39115/weather_app');
 
 require('./models/Users');
 
