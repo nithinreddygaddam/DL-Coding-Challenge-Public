@@ -18,6 +18,7 @@ class RegisterViewController:FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         form +++ Section("Mandatory Fields")
             <<< TextRow("username"){ row in
                 row.title = "Username"

@@ -10,9 +10,8 @@ import UIKit
 import CoreLocation
 import Alamofire
 import SwiftyJSON
+import SimpleKeychain
 
-var arrLocations:[String] = []
-var arrState:[String] = []
 
 class DashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
@@ -24,14 +23,28 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     var arrTime:[String] = []
     var index = 0
     var rightButton : UIBarButtonItem!
+    var leftButton : UIBarButtonItem!
+    var arrLocations:[String] = []
+    var arrState:[String] = []
     
     @IBOutlet weak var tblView: UITableView!
     
     var configurationOK = false
     let reuseIdentifier = "idCellDashboard"
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(DashboardViewController.handleRefresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.hidesNavigationBarHairline = false
+        
+        self.tblView.addSubview(self.refreshControl)
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -48,8 +61,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        rightButton = UIBarButtonItem(image: UIImage(named:"plus-simple-7.png"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(askLocation))
+        leftButton = UIBarButtonItem(image: UIImage(named:"plus-simple-7.png"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(askLocation))
+        rightButton = UIBarButtonItem(title: "Logout", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(logOut))
+        self.navigationItem.leftBarButtonItem = leftButton
         self.navigationItem.rightBarButtonItem = rightButton
+//        self.navigationItem.title = loggedUser.fName! + " " + loggedUser.lName!
+
         
         if !configurationOK {
             configureNavigationBar()
@@ -57,6 +74,19 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             configurationOK = true
         }
         
+    }
+    
+    func logOut(){
+        A0SimpleKeychain().deleteEntryForKey("user-jwt")
+        
+        loggedUser = User()
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let encodedData = NSKeyedArchiver.archivedDataWithRootObject(loggedUser)
+        userDefaults.setObject(encodedData, forKey: "loggedUser")
+        userDefaults.synchronize()
+        
+        let vc : UIViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginView") as UIViewController!;
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func askLocation(){
@@ -73,8 +103,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             else {
                 let address = textfield.text!.characters.split{$0 == ":"}.map(String.init)
                 
-                arrLocations.append(address[0].stringByReplacingOccurrencesOfString(" ", withString: "_"))
-                arrState.append(address[1].stringByReplacingOccurrencesOfString(" ", withString: "_"))
+                if( address.count > 0){
+                    self.arrLocations.append(address[0].stringByReplacingOccurrencesOfString(" ", withString: "_"))
+                    self.arrState.append(address[1].stringByReplacingOccurrencesOfString(" ", withString: "_"))
+                    
+                }
                 
                 self.fetchData()
                 
@@ -118,13 +151,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     state = pm.country!
                 }
                 
-                if arrLocations.count > 0{
-                    arrLocations.insert(location, atIndex: 0)
-                    arrState.insert(state!, atIndex: 0)
+                if self.arrLocations.count > 0{
+                    self.arrLocations.insert(location, atIndex: 0)
+                    self.arrState.insert(state!, atIndex: 0)
                 }
                 else{
-                    arrLocations.append(location)
-                    arrState.append(state!)
+                    self.arrLocations.append(location)
+                    self.arrState.append(state!)
                 }
                 
                 self.fetchData()
@@ -141,34 +174,37 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let dict = NSDictionary(contentsOfFile: path!)
         let key = dict!.objectForKey("APIKey") as! String
         
-        for i in 0 ..< arrLocations.count  {
+        self.arrTemp = []
+        self.arrTime = []
+        self.arrCondition = []
+        
+        for i in 0 ..< self.arrLocations.count  {
             dispatch_group_enter(myGroup)
-            let location = arrLocations[i].stringByReplacingOccurrencesOfString(" ", withString: "_")
-            let state = arrState[i].stringByReplacingOccurrencesOfString(" ", withString: "_")
             
-            Alamofire.request(.GET, "http://api.wunderground.com/api/" + key + "/conditions/q/" + state + "/" + location + ".json")
+            Alamofire.request(.GET, "http://api.wunderground.com/api/" + key + "/conditions/q/" + self.arrState[i].stringByReplacingOccurrencesOfString(" ", withString: "_") + "/" + self.arrLocations[i].stringByReplacingOccurrencesOfString(" ", withString: "_") + ".json")
                 .responseJSON { response in
                     
-                    switch response.result {
-                    case .Success:
-                        let json = JSON(data: response.data!)
+                    let json = JSON(data: response.data!)
+                    
+                    print(json["current_observation"]["temp_f"])
+                    
+                    if  json["current_observation"]["temp_f"] != nil{
                         
                         self.arrTemp.append(String(json["current_observation"]["temp_f"]))
                         self.arrCondition.append(String(json["current_observation"]["icon_url"]))
                         
-                        print(json["current_observation"]["local_time_rfc822"])
                         let time = String(json["current_observation"]["local_time_rfc822"]).characters.split{$0 == " "}.map(String.init)
-                            
                         self.arrTime.append(time[4])
                         
-                        
-                    case .Failure(let error):
+                    }
+                    else{
                         self.arrTemp.append("n/a")
                         self.arrTime.append("n/a")
-                        print(error)
+                        self.arrCondition.append("n/a")
                     }
                     
                     dispatch_group_leave(self.myGroup)
+                    
             }
             
             dispatch_group_notify(myGroup, dispatch_get_main_queue(), {
@@ -211,23 +247,23 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrLocations.count
+        return self.arrLocations.count
     }
     
     //displays user's information
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell:DashboardCell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! DashboardCell
-        cell.Location.text = arrLocations[indexPath.row]
-        cell.Time.text = arrTime[indexPath.row]
-        cell.Temperature.text = arrTemp[indexPath.row]
+        cell.Location.text = self.arrLocations[indexPath.row]
+        cell.Time.text = self.arrTime[indexPath.row]
+        cell.Temperature.text = self.arrTemp[indexPath.row]
         
-        if let url = NSURL(string: arrCondition[indexPath.row]) {
+        if let url = NSURL(string: self.arrCondition[indexPath.row]) {
             if let data = NSData(contentsOfURL: url) {
                 cell.Img.image = UIImage(data: data)
             }
         }
-        
+            
         return cell
     }
     
@@ -249,6 +285,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
 //                                detailWeatherViewController.index = index
             }
         }
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        // Do some reloading of data and update the table view's data source
+        // Fetch more objects from a web service, for example...
+        
+        // Simply adding an object to the data source for this example
+        fetchData()
+        refreshControl.endRefreshing()
     }
     
     

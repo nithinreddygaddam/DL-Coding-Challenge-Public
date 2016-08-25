@@ -8,7 +8,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginView" id="BYZ-38-t0r" customClass="LoginViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -20,16 +20,12 @@
                             <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clouds.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="rvj-hT-lJC">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZwO-Kz-j64">
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZwO-Kz-j64">
                                 <rect key="frame" x="24" y="409" width="326" height="51"/>
                                 <color key="backgroundColor" red="0.23018704349999999" green="0.77713233230000001" blue="0.31589496140000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES" keyboardKey="YES"/>
                                 </accessibility>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="326" id="SIT-7Q-Q0d"/>
-                                    <constraint firstAttribute="height" constant="51" id="Sc0-iU-Yoi"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <size key="titleShadowOffset" width="20" height="27"/>
                                 <state key="normal" title="Login">
@@ -42,13 +38,9 @@
                                     <action selector="IBLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dlo-cM-8v4"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ax9-Hz-i5f">
-                                <rect key="frame" x="24" y="492" width="326" height="51"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ax9-Hz-i5f">
+                                <rect key="frame" x="24" y="491" width="326" height="52"/>
                                 <color key="backgroundColor" red="0.19376453760000001" green="0.50850099329999998" blue="0.85232251879999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="51" id="pbG-2b-wgo"/>
-                                    <constraint firstAttribute="width" constant="326" id="vY9-8U-ea0"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Register">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -60,23 +52,26 @@
                                     <segue destination="EQk-kj-zbT" kind="show" id="9BT-Hf-n1v"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weather App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTp-Qp-WTq">
+                                <rect key="frame" x="81" y="84" width="213" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ZwO-Kz-j64" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="409" id="A2h-mj-eEv"/>
-                            <constraint firstAttribute="trailing" secondItem="ZwO-Kz-j64" secondAttribute="trailing" constant="25" id="CcB-XE-Y9z"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rvj-hT-lJC" secondAttribute="bottom" id="M9V-KC-mQ3"/>
-                            <constraint firstAttribute="trailing" secondItem="ax9-Hz-i5f" secondAttribute="trailing" constant="25" id="WWJ-Q3-xcw"/>
-                            <constraint firstItem="rvj-hT-lJC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Y6n-i6-fw5"/>
-                            <constraint firstItem="ax9-Hz-i5f" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="24" id="ag2-10-gjb"/>
-                            <constraint firstAttribute="trailing" secondItem="rvj-hT-lJC" secondAttribute="trailing" id="iAn-hk-BS2"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ax9-Hz-i5f" secondAttribute="bottom" constant="124" id="m9F-xH-oQw"/>
-                            <constraint firstItem="ZwO-Kz-j64" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="24" id="pVQ-9e-XEV"/>
-                            <constraint firstItem="rvj-hT-lJC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="slT-3c-fRY"/>
-                            <constraint firstItem="ax9-Hz-i5f" firstAttribute="top" secondItem="ZwO-Kz-j64" secondAttribute="bottom" constant="32" id="yQ2-08-dkE"/>
+                            <constraint firstItem="rvj-hT-lJC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="9FG-yi-n13"/>
+                            <constraint firstItem="rvj-hT-lJC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="e2K-Bl-qoU"/>
+                            <constraint firstAttribute="trailing" secondItem="xTp-Qp-WTq" secondAttribute="trailing" constant="81" id="hGg-K7-XLU"/>
+                            <constraint firstAttribute="trailing" secondItem="rvj-hT-lJC" secondAttribute="trailing" id="qJ8-n1-Ff1"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rvj-hT-lJC" secondAttribute="bottom" id="tDc-b7-IyA"/>
+                            <constraint firstItem="xTp-Qp-WTq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="64" id="u9O-yv-MTa"/>
+                            <constraint firstItem="xTp-Qp-WTq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="81" id="w4B-bi-vrd"/>
                         </constraints>
                     </view>
-                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -85,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="207.5" y="371.5"/>
+            <point key="canvasLocation" x="351.5" y="393.5"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="sTl-cJ-r6h">
@@ -137,8 +132,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JWN-pD-GBZ"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="tblView" destination="njE-5Z-nPf" id="ahz-8W-tPu"/>
+                        <outlet property="tblView" destination="njE-5Z-nPf" id="uAz-sO-vDj"/>
                         <segue destination="a8i-Wh-BCQ" kind="show" identifier="DetailSegue" id="waK-eh-8sj"/>
                     </connections>
                 </viewController>
@@ -189,6 +185,6 @@
         <image name="clouds.jpg" width="3872" height="2592"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hqK-0k-KQo"/>
+        <segue reference="Dy9-2W-rE5"/>
     </inferredMetricsTieBreakers>
 </document>

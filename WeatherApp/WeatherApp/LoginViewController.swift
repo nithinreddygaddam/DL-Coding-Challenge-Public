@@ -18,6 +18,8 @@ var loggedUser = User();
 
 class LoginViewController: UIViewController {
     
+    //Variables
+    
     var username = SkyFloatingLabelTextField()
     var password = SkyFloatingLabelTextField()
     
@@ -26,6 +28,7 @@ class LoginViewController: UIViewController {
         
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         
+        // setting the floating labels on Login Screen
         username = SkyFloatingLabelTextField(frame: CGRectMake(screenSize.midX - 95, screenSize.midY - 140, 200, 45))
         password = SkyFloatingLabelTextField(frame: CGRectMake(screenSize.midX - 95, screenSize.midY - 90, 200, 45))
         
@@ -34,7 +37,8 @@ class LoginViewController: UIViewController {
         username.autocapitalizationType = .None
         self.view.addSubview(username)
         
-        username.tintColor = UIColor.flatSkyBlueColorDark() // the color of the blinking cursor
+        // the color of the blinking cursor
+        username.tintColor = UIColor.flatSkyBlueColorDark()
         username.textColor = UIColor.flatYellowColor()
         username.placeholderColor = UIColor.flatYellowColor()
         username.lineColor = UIColor.flatYellowColor()
@@ -46,7 +50,7 @@ class LoginViewController: UIViewController {
         password.secureTextEntry = true
         self.view.addSubview(password)
         
-        password.tintColor = UIColor.flatSkyBlueColorDark() // the color of the blinking cursor
+        password.tintColor = UIColor.flatSkyBlueColorDark()
         password.textColor = UIColor.flatYellowColor()
         password.placeholderColor = UIColor.flatYellowColor()
         password.lineColor = UIColor.flatYellowColor()
@@ -57,6 +61,7 @@ class LoginViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        // check if user is already logged in
         let jwt = A0SimpleKeychain().stringForKey("user-jwt") as String?
         
         if(jwt != nil && loggedUser.id != nil){
@@ -101,7 +106,7 @@ class LoginViewController: UIViewController {
 //                        progressObject = NSProgress(totalUnitCount: 30)
 //                        ARSLineProgress.showWithProgressObject(progressObject!, completionBlock: {
 //                            
-//                            loggedUser = User(id: json["user"]["_id"].string!, username: json["user"]["username"].string!, fName: json["user"]["firstName"].string!, lName: json["user"]["lastName"].string!, eMail: json["user"]["email"].string!)
+//                            loggedUser = User(id: json["user"]["_id"].string!, username: json["user"]["username"].string!, fName: json["user"]            ["firstName"].string!, lName: json["user"]["lastName"].string!, eMail: json["user"]["email"].string!)
 //                            
 //                            let userDefaults = NSUserDefaults.standardUserDefaults()
 //                            let encodedData = NSKeyedArchiver.archivedDataWithRootObject(loggedUser)
