@@ -109,12 +109,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tHI-nF-1Rk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="273.5" y="1218.5"/>
+            <point key="canvasLocation" x="207.5" y="1218.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Dashboard View Controller-->
         <scene sceneID="EbE-l4-n2g">
             <objects>
-                <viewController id="Hbg-U8-bF0" sceneMemberID="viewController">
+                <viewController id="Hbg-U8-bF0" customClass="DashboardViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JhP-AR-5Rb"/>
                         <viewControllerLayoutGuide type="bottom" id="eya-Nj-T4l"/>
@@ -122,13 +122,47 @@
                     <view key="view" contentMode="scaleToFill" id="113-H6-Kjc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="njE-5Z-nPf">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="njE-5Z-nPf" firstAttribute="leading" secondItem="113-H6-Kjc" secondAttribute="leading" id="6NW-J7-5iQ"/>
+                            <constraint firstItem="eya-Nj-T4l" firstAttribute="top" secondItem="njE-5Z-nPf" secondAttribute="bottom" id="iHE-jr-c6l"/>
+                            <constraint firstItem="njE-5Z-nPf" firstAttribute="top" secondItem="113-H6-Kjc" secondAttribute="top" id="kYV-68-53L"/>
+                            <constraint firstAttribute="trailing" secondItem="njE-5Z-nPf" secondAttribute="trailing" id="kym-cY-2Le"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JWN-pD-GBZ"/>
+                    <connections>
+                        <outlet property="tblView" destination="njE-5Z-nPf" id="ahz-8W-tPu"/>
+                        <segue destination="a8i-Wh-BCQ" kind="show" identifier="DetailSegue" id="waK-eh-8sj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gve-bW-rWd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1433.5" y="393.5"/>
+            <point key="canvasLocation" x="1391.5" y="393.5"/>
+        </scene>
+        <!--Detail Weather View Controller-->
+        <scene sceneID="1jS-SX-iCL">
+            <objects>
+                <viewController id="a8i-Wh-BCQ" customClass="DetailWeatherViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EaC-c6-hfB"/>
+                        <viewControllerLayoutGuide type="bottom" id="Dhw-th-Lt4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="osQ-jV-N0d">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zYr-NZ-pi0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1931.5" y="393.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VMW-Uj-qaM">
@@ -155,6 +189,6 @@
         <image name="clouds.jpg" width="3872" height="2592"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Dy9-2W-rE5"/>
+        <segue reference="hqK-0k-KQo"/>
     </inferredMetricsTieBreakers>
 </document>

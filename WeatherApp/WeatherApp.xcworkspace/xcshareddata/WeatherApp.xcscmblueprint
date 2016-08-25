@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "CECC245565A6DF24BCB728AB01C31D7158E65E80",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "CECC245565A6DF24BCB728AB01C31D7158E65E80" : 0,
+    "D20EB59052E833846F2BDFE82BFE1A52F88E60E7" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "09B29049-128A-42B2-A648-B74EEF86F94A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "CECC245565A6DF24BCB728AB01C31D7158E65E80" : "DL-Coding-Challenge-Public\/",
+    "D20EB59052E833846F2BDFE82BFE1A52F88E60E7" : "HealthMG\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "WeatherApp",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "WeatherApp\/WeatherApp.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nithinreddygaddam\/DL-Coding-Challenge-Public.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CECC245565A6DF24BCB728AB01C31D7158E65E80"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nithinreddygaddam\/HealthMG_Mobile.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D20EB59052E833846F2BDFE82BFE1A52F88E60E7"
+    }
+  ]
+}

@@ -6,5 +6,7 @@
 	<string></string>
 	<key>port</key>
 	<string>8100</string>
+	<key>APIKey</key>
+	<string>e47277972a8f4b1f</string>
 </dict>
 </plist>

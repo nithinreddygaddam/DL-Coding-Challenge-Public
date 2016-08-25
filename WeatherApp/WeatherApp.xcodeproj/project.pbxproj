@@ -11,12 +11,17 @@
 		592305871D6E668B0076E939 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 592305851D6E668B0076E939 /* Main.storyboard */; };
 		592305891D6E668B0076E939 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 592305881D6E668B0076E939 /* Assets.xcassets */; };
 		5923058C1D6E668B0076E939 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5923058A1D6E668B0076E939 /* LaunchScreen.storyboard */; };
+		595DD2B41D6E866700972425 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595DD2B31D6E866700972425 /* DashboardViewController.swift */; };
+		595DD2B61D6E8C5500972425 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 595DD2B51D6E8C5500972425 /* CoreLocation.framework */; };
+		595DD2B81D6EA2C100972425 /* plus-simple-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 595DD2B71D6EA2C100972425 /* plus-simple-7.png */; };
 		59BF15451D6E71DF00694B29 /* clouds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 59BF15441D6E71DE00694B29 /* clouds.jpg */; };
 		59BF15471D6E72DF00694B29 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BF15461D6E72DF00694B29 /* LoginViewController.swift */; };
 		59BF154B1D6E735700694B29 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BF154A1D6E735700694B29 /* RegisterViewController.swift */; };
 		59BF154D1D6E751500694B29 /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59BF154C1D6E751500694B29 /* Property List.plist */; };
 		59BF15501D6E760600694B29 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BF154F1D6E760600694B29 /* User.swift */; };
 		59BF15521D6E7B8000694B29 /* clear-sky.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 59BF15511D6E7B8000694B29 /* clear-sky.jpg */; };
+		59BF15691D6E843200694B29 /* DashboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BF15681D6E843200694B29 /* DashboardCell.swift */; };
+		59BF156B1D6E843C00694B29 /* DashboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59BF156A1D6E843C00694B29 /* DashboardCell.xib */; };
 		DD83E122566F1B4007273466 /* Pods_WeatherApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F0EB6BB2CB40D4819C1B29 /* Pods_WeatherApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,12 +32,17 @@
 		592305881D6E668B0076E939 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5923058B1D6E668B0076E939 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5923058D1D6E668B0076E939 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		595DD2B31D6E866700972425 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		595DD2B51D6E8C5500972425 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		595DD2B71D6EA2C100972425 /* plus-simple-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-simple-7.png"; path = "../../../HealthMG/plus-simple-7.png"; sourceTree = "<group>"; };
 		59BF15441D6E71DE00694B29 /* clouds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = clouds.jpg; sourceTree = "<group>"; };
 		59BF15461D6E72DF00694B29 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		59BF154A1D6E735700694B29 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		59BF154C1D6E751500694B29 /* Property List.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 		59BF154F1D6E760600694B29 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		59BF15511D6E7B8000694B29 /* clear-sky.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "clear-sky.jpg"; sourceTree = "<group>"; };
+		59BF15681D6E843200694B29 /* DashboardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardCell.swift; sourceTree = "<group>"; };
+		59BF156A1D6E843C00694B29 /* DashboardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardCell.xib; sourceTree = "<group>"; };
 		64F0EB6BB2CB40D4819C1B29 /* Pods_WeatherApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E21CC65FB82A88FE6586D0E /* Pods-WeatherApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeatherApp/Pods-WeatherApp.release.xcconfig"; sourceTree = "<group>"; };
 		B7E3E02907993D6C6460C206 /* Pods-WeatherApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeatherApp/Pods-WeatherApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -43,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				595DD2B61D6E8C5500972425 /* CoreLocation.framework in Frameworks */,
 				DD83E122566F1B4007273466 /* Pods_WeatherApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +73,7 @@
 		317C14FFF215D7C0B6B504A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				595DD2B51D6E8C5500972425 /* CoreLocation.framework */,
 				64F0EB6BB2CB40D4819C1B29 /* Pods_WeatherApp.framework */,
 			);
 			name = Frameworks;
@@ -88,6 +100,7 @@
 		592305801D6E668B0076E939 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				59BF15551D6E7D8A00694B29 /* Custom View */,
 				59BF154E1D6E75F500694B29 /* Model */,
 				59BF15491D6E730600694B29 /* ViewControllers */,
 				59BF15481D6E72FC00694B29 /* Images */,
@@ -104,6 +117,7 @@
 		59BF15481D6E72FC00694B29 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				595DD2B71D6EA2C100972425 /* plus-simple-7.png */,
 				59BF15511D6E7B8000694B29 /* clear-sky.jpg */,
 				59BF15441D6E71DE00694B29 /* clouds.jpg */,
 			);
@@ -115,6 +129,7 @@
 			children = (
 				59BF15461D6E72DF00694B29 /* LoginViewController.swift */,
 				59BF154A1D6E735700694B29 /* RegisterViewController.swift */,
+				595DD2B31D6E866700972425 /* DashboardViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -125,6 +140,15 @@
 				59BF154F1D6E760600694B29 /* User.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		59BF15551D6E7D8A00694B29 /* Custom View */ = {
+			isa = PBXGroup;
+			children = (
+				59BF15681D6E843200694B29 /* DashboardCell.swift */,
+				59BF156A1D6E843C00694B29 /* DashboardCell.xib */,
+			);
+			name = "Custom View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,6 +214,8 @@
 			files = (
 				5923058C1D6E668B0076E939 /* LaunchScreen.storyboard in Resources */,
 				592305891D6E668B0076E939 /* Assets.xcassets in Resources */,
+				59BF156B1D6E843C00694B29 /* DashboardCell.xib in Resources */,
+				595DD2B81D6EA2C100972425 /* plus-simple-7.png in Resources */,
 				592305871D6E668B0076E939 /* Main.storyboard in Resources */,
 				59BF15521D6E7B8000694B29 /* clear-sky.jpg in Resources */,
 				59BF154D1D6E751500694B29 /* Property List.plist in Resources */,
@@ -252,10 +278,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59BF15691D6E843200694B29 /* DashboardCell.swift in Sources */,
 				59BF15501D6E760600694B29 /* User.swift in Sources */,
 				59BF154B1D6E735700694B29 /* RegisterViewController.swift in Sources */,
 				59BF15471D6E72DF00694B29 /* LoginViewController.swift in Sources */,
 				592305821D6E668B0076E939 /* AppDelegate.swift in Sources */,
+				595DD2B41D6E866700972425 /* DashboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
