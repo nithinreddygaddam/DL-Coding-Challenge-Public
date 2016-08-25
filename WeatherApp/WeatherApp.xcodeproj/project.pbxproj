@@ -186,6 +186,7 @@
 				TargetAttributes = {
 					5923057D1D6E668A0076E939 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 3FYM93LDK9;
 					};
 				};
 			};
@@ -397,6 +398,7 @@
 			baseConfigurationReference = B7E3E02907993D6C6460C206 /* Pods-WeatherApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -410,6 +412,7 @@
 			baseConfigurationReference = 9E21CC65FB82A88FE6586D0E /* Pods-WeatherApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

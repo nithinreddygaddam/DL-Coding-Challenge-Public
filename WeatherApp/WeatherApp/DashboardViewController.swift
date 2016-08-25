@@ -19,6 +19,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     let locationManager = CLLocationManager()
     var strTitle: String = "Dashboard"
     var arrTemp:[String] = []
+    var arrCondition:[String] = []
     var index = 0
     var rightButton : UIBarButtonItem!
     
@@ -57,8 +58,37 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func askLocation(){
-        self.performSelector(<#T##aSelector: Selector##Selector#>)
+        
+        let alertController = UIAlertController(title: "Add Location", message: "Please enter a Location and State code or Country if outside US ( San Diego:CA || Paris:France)  : ", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addTextFieldWithConfigurationHandler(nil)
+        
+        let OKAction = UIAlertAction(title: "Add", style: UIAlertActionStyle.Default) { (action) -> Void in
+            let textfield = alertController.textFields![0]
+            if textfield.text?.characters.count == 0 || textfield.text?.lowercaseString == loggedUser.username {
+                self.askLocation()
+            }
+            else {
+                let address = textfield.text!.characters.split{$0 == ":"}.map(String.init)
+                
+                arrLocations.append(address[0].stringByReplacingOccurrencesOfString(" ", withString: "_"))
+                arrState.append(address[1].stringByReplacingOccurrencesOfString(" ", withString: "_"))
+                
+                self.fetchData()
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) {
+            UIAlertAction in
+            NSLog("Cancel Pressed")
+        }
+        
+        alertController.addAction(OKAction)
+        alertController.addAction(cancelAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
     }
+    
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         print("Error while updating location " + error.localizedDescription)
@@ -75,7 +105,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             if placemarks!.count > 0 {
                 let pm = placemarks![0] as CLPlacemark
                 self.locationManager.stopUpdatingLocation()
-                var location = pm.locality!
+                let location = pm.locality!
                 var state: String?
                 
                 if pm.country != "United States"{
@@ -84,10 +114,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 else{
                     state = pm.country!
                 }
-                
-                let path = NSBundle.mainBundle().pathForResource("PropertyList", ofType: "plist")
-                let dict = NSDictionary(contentsOfFile: path!)
-                let key = dict!.objectForKey("APIKey") as! String
                 
                 if arrLocations.count > 0{
                     arrLocations.insert(location, atIndex: 0)
@@ -98,39 +124,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     arrState.append(state!)
                 }
                 
+                self.fetchData()
                 
-                for i in 0 ..< arrLocations.count  {
-                    
-                
-                    location = arrLocations[i].stringByReplacingOccurrencesOfString(" ", withString: "_")
-                    state = arrState[i].stringByReplacingOccurrencesOfString(" ", withString: "_")
-                
-                    Alamofire.request(.GET, "http://api.wunderground.com/api/" + key + "/conditions/q/" + arrState[i] + "/" + arrLocations[i])
-                        .responseJSON { response in
-                            
-                            switch response.result {
-                            case .Success:
-                                let json = JSON(data: response.data!)
-                                
-                                if self.arrTemp.count > 0{
-                                    self.arrTemp.insert(String(json["temp_f"]), atIndex: 0)
-                                }
-                                else{
-                                    self.arrTemp.append(String(json["temp_f"]))
-                                }
-                            case .Failure(let error):
-                                self.arrTemp.append("n/a")
-                                print(error)
-                            }
-                    }
-                    
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.tblView.reloadData()
-                    self.tblView.hidden = false
-                })
-
                 
             } else {
                 print("Problem with the data received from geocoder")
@@ -138,6 +133,51 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         })
     }
     
+    func fetchData() {
+        
+        let path = NSBundle.mainBundle().pathForResource("Property List", ofType: "plist")
+        let dict = NSDictionary(contentsOfFile: path!)
+        let key = dict!.objectForKey("APIKey") as! String
+        
+        for i in 0 ..< arrLocations.count  {
+            
+            let location = arrLocations[i].stringByReplacingOccurrencesOfString(" ", withString: "_")
+            let state = arrState[i].stringByReplacingOccurrencesOfString(" ", withString: "_")
+            
+            Alamofire.request(.GET, "http://api.wunderground.com/api/" + key + "/conditions/q/" + state + "/" + location + ".json")
+                .responseJSON { response in
+                    
+                    switch response.result {
+                    case .Success:
+                        let json = JSON(data: response.data!)
+                        
+                        print(json)
+                        
+                        if self.arrTemp.count > 0{
+                            self.arrTemp.insert(String(json["temp_f"]), atIndex: 0)
+                            self.arrCondition.insert(String(json["condition"]).stringByReplacingOccurrencesOfString(" ", withString: ""), atIndex: 0)
+                        }
+                        else{
+                            self.arrTemp.append(String(json["temp_f"]))
+                            self.arrCondition.append((String(json["weather"]).stringByReplacingOccurrencesOfString(" ", withString: "")).lowercaseString)
+                        }
+                        
+                        
+                    case .Failure(let error):
+                        self.arrTemp.append("n/a")
+                        print(error)
+                    }
+            }
+            
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tblView.reloadData()
+            self.tblView.hidden = false
+        })
+
+        
+    }
     
     func configureNavigationBar() {
         navigationItem.title = strTitle
@@ -175,6 +215,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.Location.text = arrLocations[indexPath.row]
             cell.Time.text = arrState[indexPath.row]
             cell.Temperature.text = arrTemp[indexPath.row]
+            cell.url = "http://icons.wxug.com/i/c/k/" + arrCondition[indexPath.row] + ".gif"
         
             return cell
     }
@@ -185,16 +226,16 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        self.performSegueWithIdentifier("detailSegue", sender: nil)
-        index = indexPath.row
+//        self.performSegueWithIdentifier("detailSegue", sender: nil)
+//        index = indexPath.row
         
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             if identifier == "detailSegue" {
-                let detailWeatherViewController = segue.destinationViewController as! DetailWeatherViewController
-                                detailWeatherViewController.index = index
+//                let detailWeatherViewController = segue.destinationViewController as! DetailWeatherViewController
+//                                detailWeatherViewController.index = index
             }
         }
     }

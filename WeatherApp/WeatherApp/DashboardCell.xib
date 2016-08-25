@@ -38,7 +38,6 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="Image" destination="MbB-VU-F2h" id="as4-zn-Rdk"/>
                 <outlet property="Img" destination="MbB-VU-F2h" id="Q2a-Cp-2HN"/>
                 <outlet property="Location" destination="fKa-1v-0fS" id="CBF-Nz-vha"/>
                 <outlet property="Temperature" destination="Ahr-82-TBY" id="nNf-kV-qGt"/>
