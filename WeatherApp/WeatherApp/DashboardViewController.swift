@@ -17,9 +17,11 @@ var arrState:[String] = []
 class DashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
+    var myGroup = dispatch_group_create()
     var strTitle: String = "Dashboard"
     var arrTemp:[String] = []
     var arrCondition:[String] = []
+    var arrTime:[String] = []
     var index = 0
     var rightButton : UIBarButtonItem!
     
@@ -33,7 +35,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         
     }
@@ -75,6 +77,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 arrState.append(address[1].stringByReplacingOccurrencesOfString(" ", withString: "_"))
                 
                 self.fetchData()
+                
             }
         }
         
@@ -126,7 +129,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 
                 self.fetchData()
                 
-                
             } else {
                 print("Problem with the data received from geocoder")
             }
@@ -140,7 +142,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let key = dict!.objectForKey("APIKey") as! String
         
         for i in 0 ..< arrLocations.count  {
-            
+            dispatch_group_enter(myGroup)
             let location = arrLocations[i].stringByReplacingOccurrencesOfString(" ", withString: "_")
             let state = arrState[i].stringByReplacingOccurrencesOfString(" ", withString: "_")
             
@@ -151,32 +153,37 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     case .Success:
                         let json = JSON(data: response.data!)
                         
-                        print(json)
+                        self.arrTemp.append(String(json["current_observation"]["temp_f"]))
+                        self.arrCondition.append(String(json["current_observation"]["icon_url"]))
                         
-                        if self.arrTemp.count > 0{
-                            self.arrTemp.insert(String(json["temp_f"]), atIndex: 0)
-                            self.arrCondition.insert(String(json["condition"]).stringByReplacingOccurrencesOfString(" ", withString: ""), atIndex: 0)
-                        }
-                        else{
-                            self.arrTemp.append(String(json["temp_f"]))
-                            self.arrCondition.append((String(json["weather"]).stringByReplacingOccurrencesOfString(" ", withString: "")).lowercaseString)
-                        }
+                        print(json["current_observation"]["local_time_rfc822"])
+                        let time = String(json["current_observation"]["local_time_rfc822"]).characters.split{$0 == " "}.map(String.init)
+                            
+                        self.arrTime.append(time[4])
                         
                         
                     case .Failure(let error):
                         self.arrTemp.append("n/a")
+                        self.arrTime.append("n/a")
                         print(error)
                     }
+                    
+                    dispatch_group_leave(self.myGroup)
             }
             
+            dispatch_group_notify(myGroup, dispatch_get_main_queue(), {
+                self.reloadTable()
+            })
+            
         }
-        
+    }
+    
+    
+    func reloadTable(){
         dispatch_async(dispatch_get_main_queue(), {
             self.tblView.reloadData()
             self.tblView.hidden = false
         })
-
-        
     }
     
     func configureNavigationBar() {
@@ -210,14 +217,18 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     //displays user's information
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-
-            let cell:DashboardCell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! DashboardCell
-            cell.Location.text = arrLocations[indexPath.row]
-            cell.Time.text = arrState[indexPath.row]
-            cell.Temperature.text = arrTemp[indexPath.row]
-            cell.url = "http://icons.wxug.com/i/c/k/" + arrCondition[indexPath.row] + ".gif"
+        let cell:DashboardCell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! DashboardCell
+        cell.Location.text = arrLocations[indexPath.row]
+        cell.Time.text = arrTime[indexPath.row]
+        cell.Temperature.text = arrTemp[indexPath.row]
         
-            return cell
+        if let url = NSURL(string: arrCondition[indexPath.row]) {
+            if let data = NSData(contentsOfURL: url) {
+                cell.Img.image = UIImage(data: data)
+            }
+        }
+        
+        return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

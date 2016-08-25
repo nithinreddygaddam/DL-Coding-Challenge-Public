@@ -15,5 +15,4 @@ target 'WeatherApp' do
     pod 'IQKeyboardManagerSwift'
     pod 'Alamofire', '~> 3.4'
     pod 'SimpleKeychain'
-    pod "AsyncSwift"
 end

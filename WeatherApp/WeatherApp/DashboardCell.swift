@@ -15,16 +15,10 @@ class DashboardCell: UITableViewCell {
     @IBOutlet weak var Temperature: UILabel!
     @IBOutlet weak var Img: UIImageView!
     
-    var url: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-//        if let url = NSURL(string: url!) {
-//            if let data = NSData(contentsOfURL: url) {
-//                Img.image = UIImage(data: data)
-//            }        
-//        }
+    
        
     }
     override func setSelected(selected: Bool, animated: Bool) {
